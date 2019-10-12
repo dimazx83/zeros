@@ -1,37 +1,41 @@
 module.exports = function zeros(expression) {
   // your solution
-    var result = 0;
-    var result2 = 0;
-    var result5 = 0;
-    expression.split("*").forEach(i => {
-      if (i.charAt(i.length - 2) == "!") {
-        i = +i.substring(0, i.length - 2);
-        if (i % 2 === 0) {
-          for (let n = 2; n <= i; n += 2) {
-            if (n % 2 == 0) { result2 ++ }        
-          }      
-  
-        } else {
-          for (let n = 1; n <= i; n += 2) {
-            if (n % 5 == 0) {
-              result5 ++;
-            }
-          }
+  var result2 = 0;
+  var result5 = 0;
+  expression.split("*").forEach(i => {
+    if (i.charAt(i.length - 2) == "!") {
+      i = +i.substring(0, i.length - 2);
+      for (let n = i; n > 0; n -= 2) {
+        let m=n;
+        while (m % 2 == 0) {
+          result2++;
+          m /= 2;
         }
-       }
-     else {
-        i = +i.substring(0, i.length - 1);
-        while (i >1) {      
-          result5 += Math.floor(i / 5);
-          i /= 5;
-         i= Math.floor(i)
+      }
+      for (let nn = i; nn > 0; nn -= 2) {
+        let z=nn
+        while (z % 5 == 0) {
+          result5++;
+          z /= 5;
         }
+      }
+    } else {
+      i = +i.substring(0, i.length - 1);
+      for (let n = i; n > 0; n --) {
+        let mm=n;
+        while (mm % 5 == 0) {
+          result5++;
+          mm /= 5;
+        }
+      }
+
     }
-    if(result2>result5){
-      result=result2-result5;
-    }
-    else result=result5-result2;
-    })
-    return result;
+    
+  })
+   if(result2==0) return  result5
+  else if(result5==0) return result2 
+  else if (result2 >= result5) return result5
+
+  else return result2
   
 }
